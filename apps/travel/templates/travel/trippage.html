@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Destination</title>
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'dash/bootstrap/css/bootstrap.css'%}">
+</head>
+<body>
+    <div class='container'>
+        <div id="header" style='text-align: right'>
+            <a href="{%url 'home'%}">Home</a> <a style='margin-left: 20px;' href="{%url 'index'%}">Logout</a>
+        </div>
+        <div id="info">
+            <h2>{{trip.destination}}</h2>
+            <div style='margin-left: 20px;'>
+                <p>Planned By: {{trip.planner.name}}</p>
+                <p>Description: {{trip.description}}</p>
+                <p>Travel Date from: {{trip.startDate}}</p>
+                <p>Travel date To: {{trip.endDate}}</p>
+            </div>
+        </div>
+        <div id="joiners">
+            <h2>Other users' joining the trip:</h2>
+            <div style='margin-left: 20px;'>
+            {%for joiner in trip.joiners.all%}
+            {%if joiner.id != trip.planner.id%}
+            <p>{{joiner.name}}</p>
+            {%endif%}
+            {%endfor%}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

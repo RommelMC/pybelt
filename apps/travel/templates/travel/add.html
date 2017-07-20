@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Plan</title>
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'dash/bootstrap/css/bootstrap.css'%}">
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div id="header" style='text-align:right'>
+            <a href="{%url 'home'%}">Home</a> <a style='margin-left: 20px;' href="{%url 'index'%}">Logout</a>
+        </div>
+        {%if messages%}
+        {%for message in messages%}
+        <p class='{{message.tags}}'>{{message}}</p>
+        {%endfor%}
+        {%endif%}
+        <h2>Add a Trip</h2>
+        <form action="{%url 'addtrip'%}" method='POST'>
+            {%csrf_token%}
+            <div>
+                <label>Destination: </label>
+                <input type="text" name='dest'>
+            </div>
+            <div>
+                <label>Description: </label>
+                <input type="text" name='desc'>
+            </div>
+            <div>
+                <label>Travel Date from:</label>
+                <input type="date" name='start' required>
+            </div>
+            <div>
+                <label>Travel Date To:</label>
+                <input type="date" name='end' required>
+            </div>
+            <input type="submit" value='Add'>
+        </form>
+    </div>
+</body>
+</html>

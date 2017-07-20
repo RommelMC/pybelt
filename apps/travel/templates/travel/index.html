@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login and Registration</title>
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'dash/bootstrap/css/bootstrap.css'%}">
+</head>
+<style>
+    .error{
+        color: red;
+    }
+</style>
+<body>
+    <div class='container'>
+        {%if messages%}
+        {%for message in messages%}
+        <p class='{{message.tags}}'>{{message}}</p>
+        {%endfor%}
+        {%endif%}
+        <h2>Register</h2>
+        <form action="{%url 'login'%}" method='POST'>
+            {%csrf_token%}
+            <input type="hidden" name='action' value='register'>
+            <div>
+                <label>Name:</label>
+                <input type="text" name='name'>
+            </div>
+            <div>
+                <label>Username:</label>
+                <input type="text" name='username'>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" name='pw'>
+            </div>
+            <p>*Password should be at least 8 characters</p>
+            <div>
+                <label>Confirm Password:</label>
+                <input type="password" name='cpw'>
+            </div>
+            <input type="submit" value='Register'>
+        </form>
+
+        <h2>Login</h2>
+        <form action="{%url 'login'%}" method='POST'>
+            {%csrf_token%}  
+            <input type="hidden" name='action' value='login'>
+            <div>
+                <label>Username:</label>
+                <input type="text" name='username'>
+            </div>  
+            <div>
+                <label>Password:</label>
+                <input type="password" name='pw'>
+            </div>
+            <input type="submit" value='Login'>
+        </form>
+    </div>
+</body>
+</html>

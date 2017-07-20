@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Dashboard</title>
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'dash/bootstrap/css/bootstrap.css'%}">
+</head>
+<body>
+    <div class='container'>
+        <div id="header" style='text-align: right'>
+            <a href="{%url 'index'%}">Logout</a>
+        </div>
+        <h2>Hello, {{user.name}}</h2>
+
+        <p>Your Trip Schedules</p>
+        <table class='table table-bordered table-striped'>
+            <thead>
+                <tr>
+                    <th>Destination</th>
+                    <th>Travel Start Date</th>
+                    <th>Travel End Date</th>
+                    <th>Plan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for trip in trips%}
+                <tr>
+                    <td><a href="{%url 'trippage' id=trip.id%}">{{trip.destination}}</a></td>
+                    <td>{{trip.startDate}}</td>
+                    <td>{{trip.endDate}}</td>
+                    <td>{{trip.description}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+        <p>Other User's Travel Plans</p>
+        <table class='table table-bordered table-striped'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Destination</th>
+                    <th>Travel Start Date</th>
+                    <th>Travel End Date</th>
+                    <th>Do You Want to Join?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for trip in alltrips%}
+                {%if trip.planner.id != request.session.curr%}
+                <tr>
+                    <td>{{trip.planner.name}}</td>
+                    <td><a href="{%url 'trippage' id=trip.id%}">{{trip.destination}}</a></td>
+                    <td>{{trip.startDate}}</td>
+                    <td>{{trip.endDate}}</td>
+                    <td><a href="{%url 'join' id=trip.id%}">Join</a></td>
+                </tr>
+                {%endif%}
+                {%endfor%}
+            </tbody>
+        </table>
+
+        <a href="{%url 'add'%}">Add Travel plan</a>
+    </div>
+</body>
+</html>
